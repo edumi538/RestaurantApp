@@ -1,5 +1,5 @@
 {
-  "name": "nextly-template",
+  "name": "teste-frontend-duo",
   "version": "0.1.0",
   "description": "Nextly Landing Page Template",
   "private": true,
@@ -7,10 +7,6 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://gituhb.com/web3templates/nextly-template"
   },
   "keywords": [
     "nextjs",
@@ -27,11 +23,14 @@
     "@headlessui/react": "^1.7.14",
     "@heroicons/react": "^2.0.17",
     "@tailwindcss/aspect-ratio": "^0.4.2",
+    "axios": "^1.6.2",
+    "crypto-js": "^4.2.0",
     "next": "^13.3.1",
+    "next-auth": "^4.24.5",
     "next-themes": "^0.2.1",
     "react": "^18",
     "react-dom": "^18",
-    "react-hook-form": "^7.43.9"
+    "react-hook-form": "^7.48.2"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",
