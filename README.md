@@ -11,7 +11,7 @@ Antes de começar, certifique-se de ter o [Node.js](https://nodejs.org/) instala
 1. Clone este repositório:
 
     ```bash
-    git clone https://github.com/seu-usuario/teste-frontend.git
+    git clone https://github.com/edumi538/teste-frontend.git
     ```
 
 2. Navegue até o diretório do projeto:
