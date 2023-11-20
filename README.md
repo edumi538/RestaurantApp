@@ -25,15 +25,6 @@ Antes de começar, certifique-se de ter o [Node.js](https://nodejs.org/) instala
     ```bash
     npm install ou yarn
     ```
-4. .ENV
-
-  Crie um arquivo .env com o seguinte código:
-  ```bash
-NEXTAUTH_URL="http://localhost:3000/"
-NEXTAUTH_SECRET="3vE/u0IpHsjiV4F2rnThhAOhmXdfM7WwdcILLVynVpI="
-NEXT_PUBLIC_API_ROUTE="https://oeuzfyubdzrxzgrbapdg.supabase.co/rest/v1/"
-NEXT_PUBLIC_API_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9ldXpmeXViZHpyeHpncmJhcGRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTk5ODg4MjIsImV4cCI6MjAxNTU2NDgyMn0.6yfw9wjSm0NDTIVIZ-7PlCY4cgB8QerzayJnGzTvg7U"
-```
     
 ## Inicialização
 
