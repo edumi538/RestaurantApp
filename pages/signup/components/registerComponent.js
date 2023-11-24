@@ -16,6 +16,8 @@ async function gerarNovoId() {
     contador = localStorage.getItem("contador");
   }
   const usuariosExistentes = JSON.parse(localStorage.getItem("usuarios")) || [];
+  const usuarios = await GetAll();
+
   if (usuariosExistentes.length > 0) {
     const arrayids = usuariosExistentes.map((item) => item.id);
     const maiorid = Math.max.apply(null, arrayids);
@@ -34,8 +36,7 @@ async function gerarNovoId() {
     }
 
     return novoId;
-  } else {
-    const usuarios = await GetAll();
+  } else if (usuarios.length > 0) {
     const arrayids = usuarios.map((item) => item.id);
     const maiorid = Math.max.apply(null, arrayids);
     if (maiorid) {
@@ -52,6 +53,12 @@ async function gerarNovoId() {
       localStorage.setItem("contador", novoId);
     }
 
+    return novoId;
+  } else {
+    novoId = contador + 1;
+    if (typeof window !== "undefined") {
+      localStorage.setItem("contador", novoId);
+    }
     return novoId;
   }
 }
