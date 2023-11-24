@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Signup, UpdateUser } from "../../api/auth/register";
+import { GetAll, Signup, UpdateUser } from "../../api/auth/register";
 import { UpdateUsuarioLocalStorage } from "../../../services/register_service";
 
 function SetUsuarioLocalStorage(novoUsuario) {
@@ -9,21 +9,51 @@ function SetUsuarioLocalStorage(novoUsuario) {
   localStorage.setItem("usuarios", JSON.stringify(usuariosExistentes));
 }
 
-function gerarNovoId() {
+async function gerarNovoId() {
   let contador = 0;
+  let novoId = 0;
   if (typeof window !== "undefined") {
     contador = localStorage.getItem("contador");
   }
-  if (contador === null) {
-    contador = 0;
+  const usuariosExistentes = JSON.parse(localStorage.getItem("usuarios")) || [];
+  if (usuariosExistentes.length > 0) {
+    const arrayids = usuariosExistentes.map((item) => item.id);
+    const maiorid = Math.max.apply(null, arrayids);
+    if (maiorid) {
+      contador = maiorid;
+    } else {
+      if (contador === null) {
+        contador = 0;
+      } else {
+        contador = parseInt(contador);
+      }
+    }
+    novoId = contador + 1;
+    if (typeof window !== "undefined") {
+      localStorage.setItem("contador", novoId);
+    }
+
+    return novoId;
   } else {
-    contador = parseInt(contador);
+    const usuarios = await GetAll();
+    const arrayids = usuarios.map((item) => item.id);
+    const maiorid = Math.max.apply(null, arrayids);
+    if (maiorid) {
+      contador = maiorid;
+    } else {
+      if (contador === null) {
+        contador = 0;
+      } else {
+        contador = parseInt(contador);
+      }
+    }
+    novoId = contador + 1;
+    if (typeof window !== "undefined") {
+      localStorage.setItem("contador", novoId);
+    }
+
+    return novoId;
   }
-  const novoId = contador + 1;
-  if (typeof window !== "undefined") {
-    localStorage.setItem("contador", novoId);
-  }
-  return novoId;
 }
 
 export const RegisterComponent = ({
@@ -46,7 +76,7 @@ export const RegisterComponent = ({
   useEffect(() => {
     if (updateUsername) {
       reset({
-        username: updateUsername || "", // Certifique-se de fornecer um valor padrão para evitar problemas com campos não controlados
+        username: updateUsername || "",
       });
     }
   }, [updateUsername, reset]);
@@ -54,14 +84,19 @@ export const RegisterComponent = ({
   const onSubmit = async (data) => {
     setLoading(true);
     if (!Edicao) {
-      const ID = gerarNovoId();
+      const ID = await gerarNovoId();
+      console.log(ID);
       const response = await Signup({
         id: ID,
         name: data.username,
         password: data.password,
       });
       if (response == "sucesso") {
-        SetUsuarioLocalStorage({ ...data, id: ID });
+        SetUsuarioLocalStorage({
+          name: data.username,
+          password: data.password,
+          id: ID,
+        });
       }
       setResponse(response);
       response !== "falhou" && setSeconds(3);
