@@ -4,9 +4,11 @@ import Navbar from "../../components/navbar";
 import { RegisterComponent } from "../signup/components/registerComponent";
 import SuccessAlert from "../../components/alerts/success";
 import DangerAlert from "../../components/alerts/danger";
+import { useSession } from "next-auth/react";
 
 export default function UpdateScreen() {
   const router = useRouter();
+  const { data: session } = useSession();
   const [Seconds, setSeconds] = useState(0);
   const [Response, setResponse] = useState("");
   const [UpdateUsername, setUpdateUsername] = useState("");
@@ -60,6 +62,8 @@ export default function UpdateScreen() {
         updateUsername={UpdateUsername}
         updateId={UpdateId}
         Edicao={true}
+        router={router}
+        session={session}
       />
     </div>
   );

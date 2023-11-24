@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { GetAll, Signup, UpdateUser } from "../../api/auth/register";
 import { UpdateUsuarioLocalStorage } from "../../../services/register_service";
+import { signOut } from "next-auth/react";
 
 function SetUsuarioLocalStorage(novoUsuario) {
   const usuariosExistentes = JSON.parse(localStorage.getItem("usuarios")) || [];
@@ -69,6 +70,8 @@ export const RegisterComponent = ({
   Edicao,
   updateUsername,
   updateId,
+  router,
+  session,
 }) => {
   const {
     register,
@@ -92,7 +95,6 @@ export const RegisterComponent = ({
     setLoading(true);
     if (!Edicao) {
       const ID = await gerarNovoId();
-      console.log(ID);
       const response = await Signup({
         id: ID,
         name: data.username,
@@ -115,7 +117,17 @@ export const RegisterComponent = ({
       );
       if (response == "sucesso") {
         UpdateUsuarioLocalStorage(data.username, data.password, updateId);
+        if (session.user.id === parseInt(updateId)) {
+          await signOut({ redirect: false })
+            .then(() => {
+              router.push("/login");
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        }
       }
+
       setTimeout(() => {
         setLoading(false);
         setResponse(response);
