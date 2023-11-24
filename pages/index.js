@@ -1,7 +1,5 @@
 import Head from "next/head";
 import Navbar from "../components/navbar";
-import Footer from "../components/footer";
-
 import { getSession } from "next-auth/react";
 import Apresentation from "../components/apresentation";
 
