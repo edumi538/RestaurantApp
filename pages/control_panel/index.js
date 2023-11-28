@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../../components/navbar.tsx";
-import UsersTable from "./components/users_table";
+import Navbar from "../../components/navbar";
+import { UsersTable } from "./components/users_table";
 import { getSession, signOut, useSession } from "next-auth/react";
 import { DeleteById, GetAll } from "../api/auth/register";
 import { useRouter } from "next/router";
