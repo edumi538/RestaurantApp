@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../../components/navbar";
-import { UsersTable } from "./components/users_table";
+import Navbar from "../../components/navbar.tsx";
+import UsersTable from "./components/users_table";
 import { getSession, signOut, useSession } from "next-auth/react";
 import { DeleteById, GetAll } from "../api/auth/register";
 import { useRouter } from "next/router";
@@ -13,14 +13,9 @@ export default function PainelDeControleScreen() {
 
   useEffect(() => {
     async function fetchData() {
-      let usuariosExistentes =
-        JSON.parse(localStorage.getItem("usuarios")) || [];
-      if (usuariosExistentes.length <= 0) {
-        const usuarios = await GetAll();
-        localStorage.setItem("usuarios", JSON.stringify(usuarios));
-        usuariosExistentes = JSON.parse(localStorage.getItem("usuarios")) || [];
-      }
-      SetStateUsuariosExistentes(usuariosExistentes);
+      const usuarios = await GetAll();
+      localStorage.setItem("usuarios", JSON.stringify(usuarios));
+      SetStateUsuariosExistentes(usuarios);
     }
     fetchData();
   }, []);
