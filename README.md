@@ -1,4 +1,4 @@
-# Restaurant APP
+# Restaurant APP 🥪
 
 Bem-vindo ao projeto! Este é um projeto realizado por Eduardo Miranda de oliveira em Reactjs + Next.js + Tailwind na estilização, criado para [Concorrer a uma vaga de Desenvolvedor FrontEnd].
 
